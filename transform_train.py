@@ -47,7 +47,7 @@ def train_dict_unitary(dict_p,dat,spp,iter_v,l2,l3):
         b=batch_thresh(dict_p,dat,spp)
         e_v=(np.matmul(dict_p,b)-dat)**2
         err[i]=np.mean(np.mean(e_v,axis=0))
-        mat=dat_co+l2*np.eye(dat_co.shape[0])
+        mat=dat_co+l3*np.eye(dat_co.shape[0])
         [u,s,vh]=np.linalg.svd(mat)
         LL=np.matmul(u,np.matmul(s**0.5,vh))
         #svd returns vh (already transposed)
