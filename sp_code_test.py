@@ -5,6 +5,7 @@
 """
 
 import numpy as np
+    
 import matplotlib
 #define soft thresholding operator
 def soft_t(x,lam):
@@ -14,7 +15,8 @@ def init_dict(dat_dim,num_atoms):
     dict_gt=np.random.rand(dat_dim,num_atoms)
     atom_ind=np.array(range(1,num_atoms))
     dict_gt[:,atom_ind]=dict_gt[:,atom_ind]-np.mean(dict_gt[:,atom_ind])
-    dict_gt[:,atom_ind]=dict_gt[:,atom_ind]/(np.sqrt(np.sum(dict_gt**2)))
+    cm=np.sqrt(np.sum(dict_gt[:,atom_ind]**2,axis=0))
+    dict_gt[:,atom_ind]=dict_gt[:,atom_ind]/cm
     dict_gt[:,0]=np.ones([dat_dim,1]).ravel()/np.sqrt(dat_dim)
     return(dict_gt)
 
