@@ -7,7 +7,7 @@ Created on Fri Jan  8 08:10:24 2021
 
 import numpy as np
 from matplotlib import pyplot
-import scipy as sp
+from scipy import signal
 I=pyplot.imread('C:\\Users\\sushanthsgradlaptop2\\Downloads\\cameraman.png')
 I=I.astype(float)
 I=(I-np.min(I))/(np.max(I)-np.min(I))
@@ -43,12 +43,16 @@ pyplot.imshow(Ip_n,cmap='gray',vmin=0,vmax=1)
 Ipm=Ip_n
 k=0.1
 st=0.1
+reg_al=0.92
+iter_num=20
 #%
 for i in range(iter_v):
     Ipm+=st*0.25*(get_w(ng(Ipm),k)*ng(Ipm)
                +get_w(sg(Ipm),k)*sg(Ipm)
                +get_w(eg(Ipm),k)*eg(Ipm)
                +get_w(wg(Ipm),k)*wg(Ipm))
+    if(i%iter_num==0):
+        Ipm=reg_al*Ipm+(1-reg_al)*signal.medfilt2d(Ipm)
 #
 #pyplot.imshow(Ip_n,cmap='gray',vmin=0,vmax=1) 
 pyplot.figure()
